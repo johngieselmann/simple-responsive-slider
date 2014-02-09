@@ -127,10 +127,16 @@
 
                 case "rotate":
                 default:
-                    self.current
-                        .css({
-                            left: 0
-                        });
+                    if (self.cssTrans) {
+                        self.slides.not(".js-current")
+                            .addClass("srs-slideright");
+                    } else {
+                        self.slides.not(".js-current")
+                            .css({
+                                left: "100%"
+                            });
+                    }
+
                     break;
             }
 
@@ -329,10 +335,10 @@
                 default:
 
                     // hide the previous and move it to the right so it can
-                    // slide left when needed
+                    // slide left when ready
                     if (self.cssTrans) {
                         self.previous
-                            .hide()
+                            .removeClass("srs-slideleft")
                             .addClass("srs-slideright");
                     } else {
                         self.previous
@@ -355,10 +361,9 @@
                             .removeClass("js-current");
                     }
 
-                    // prepare the next slide to slide in
+                    // have the next slide move in
                     if (self.cssTrans) {
                         self.next
-                            .show()
                             .removeClass("srs-slideright")
                             .addClass("js-current");
                     } else {
